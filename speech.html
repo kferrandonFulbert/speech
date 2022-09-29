@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Page Title</title>
+    <meta name="description" content="Roughly 155 characters">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        var msg = new SpeechSynthesisUtterance();
+        const voices = window.speechSynthesis.getVoices();
+        const synth = window.speechSynthesis;
+
+        function init() {  
+            msg.voice = voices[10]; // Note: some voices don't support altering params
+            msg.voiceURI = 'native';
+            msg.volume = 1; // 0 to 1
+            msg.rate = 1; // 0.1 to 10
+            msg.pitch = 0; //0 to 2
+          //  msg.text = "Bonjour";
+          var txt = document.getElementById('contentToRead').textContent;
+        //  console.log(txt);
+            msg.text = txt;
+            msg.lang = 'fr-FR';
+
+            msg.onend = function (e) {
+                console.log('Finished in ' + event.elapsedTime + ' seconds.');
+            };
+
+         //   speechSynthesis.speak(msg);
+        }
+function play(){
+    console.log(msg);
+  //  speechSynthesis.speak(msg);
+  const amIPaused = synth.paused;
+  (amIPaused)?synth.resume(msg):synth.speak(msg);
+}
+function pause(){
+    synth.pause(msg);
+  console.log(msg);
+}
+        window.addEventListener('load', (event) => {
+            init();
+        });
+    </script>
+
+</head>
+
+<body>
+    <div id="kf-player">
+        <span class="kf-item-auto kf-item-color" id="play"><a href="#" onclick="play();">
+        &#9658;</a></span>
+        <span class="kf-item-auto kf-item-color" id="pause"><a href="#" onclick="pause();">&#9208;</a></span>
+      </div>
+
+      <div id="contentToRead">
+        L'encapsulation, en informatique et specifiquement pour les reseaux informatiques, est un procédé consistant à inclure les données d'un protocole dans un autre protocole
+      </div>
+</body>
+
+</html>
